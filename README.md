@@ -99,19 +99,23 @@ nginx安装路径假设为:/usr/local/nginx/conf/
 只记录过滤日志，不开启过滤，在代码里在check前面加上--注释即可，如果需要过滤，反之
 
 ###一些说明：
-
+        
 	过滤规则在wafconf下，可根据需求自行调整，每条规则需换行,或者用|分割
-	
+	 
 		args里面的规则get参数进行过滤的
 		url是只在get请求url过滤的规则		
 		post是只在post请求过滤的规则		
 		whitelist是白名单，里面的url匹配到不做过滤		
 		user-agent是对user-agent的过滤规则
 	
-
+          
 	默认开启了get和post过滤，需要开启cookie过滤的，编辑waf.lua取消部分--注释即可
+        
+	单独编写blackip函数，可节省共享内存，自行设定ttl，同时方便后续增加通过redis统一维护黑名单ip功能
 	
 	日志文件名称格式如下:虚拟主机名_sec.log
+	
+	
 
 waf日志处理脚本：
 handleWafLogIP.sh 脚本比较暴力，放到定时任务中，思路就是通过分析waf日志，定时产生黑名单ip。也可行编写此脚本。
