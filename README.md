@@ -20,7 +20,7 @@ ngx_lua如果是0.9.2以上版本，建议正则过滤函数改为ngx.re.find，
 
 ###使用说明：
 
-nginx安装路径假设为:/usr/local/nginx/conf/
+nginx安装路径假设为:/etc/nginx/waf/
 
 把ngx_lua_waf下载到conf目录下,解压命名为waf
 
@@ -35,7 +35,7 @@ nginx安装路径假设为:/usr/local/nginx/conf/
 
 配置config.lua里的waf规则目录(一般在waf/conf/目录下)
 
-        RulePath = "/usr/local/nginx/conf/waf/wafconf/"
+        RulePath = "/etc/nginx/waf/ngx_lua_waf/wafconf/"
 
 绝对路径如有变动，需对应修改
 
@@ -44,13 +44,13 @@ nginx安装路径假设为:/usr/local/nginx/conf/
 
 ###配置文件详细说明：
 
-    	RulePath = "/usr/local/nginx/conf/waf/wafconf/"
+    	RulePath = "/etc/nginx/waf/ngx_lua_waf/wafconf/"
         --规则存放目录
         BlackipFile = "/etc/nginx/waf/ngx_lua_waf/wafconf/blackip"
         --封禁黑名单IP，此文件由其他(handleWafLogIP.sh)脚本生成，通过自行设置ttl和共享内存维护黑名单ip
         attacklog = "off"
         --是否开启攻击信息记录，需要配置logdir
-        logdir = "/usr/local/nginx/logs/hack/"
+        logdir = "/opt/logs/waf/"
         --log存储目录，该目录需要用户自己新建，切需要nginx用户的可写权限
         UrlDeny="on"
         --是否拦截url访问
