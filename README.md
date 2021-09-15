@@ -47,7 +47,7 @@ nginx安装路径假设为:/usr/local/nginx/conf/
     	RulePath = "/usr/local/nginx/conf/waf/wafconf/"
         --规则存放目录
         BlackipFile = "/etc/nginx/waf/ngx_lua_waf/wafconf/blackip"
-        --封禁黑名单IP，此文件由其他(handleWafLogIP.sh)脚本生成
+        --封禁黑名单IP，此文件由其他(handleWafLogIP.sh)脚本生成，通过自行设置ttl和共享内存维护黑名单ip
         attacklog = "off"
         --是否开启攻击信息记录，需要配置logdir
         logdir = "/usr/local/nginx/logs/hack/"
@@ -113,5 +113,7 @@ nginx安装路径假设为:/usr/local/nginx/conf/
 	
 	日志文件名称格式如下:虚拟主机名_sec.log
 
+waf日志处理脚本：
+handleWafLogIP.sh 脚本比较暴力，放到定时任务中，思路就是通过分析waf日志，定时产生黑名单ip。也可行编写此脚本。
 
 
