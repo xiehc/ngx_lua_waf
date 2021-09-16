@@ -7,7 +7,7 @@ local optionIsOn = function (options) return options == "on" and true or false e
 
 logpath = logdir 
 rulepath = RulePath
-blackipfile = BlackipFile
+banipfile = BanIpFile
 UrlDeny = optionIsOn(UrlDeny)
 PostCheck = optionIsOn(postMatch)
 CookieCheck = optionIsOn(cookieMatch)
@@ -246,8 +246,8 @@ function get_boundary()
 end
 
 function whiteip()
-    if next(ipWhitelist) ~= nil then
-        for _,ip in pairs(ipWhitelist) do
+    if next(bypassIPlist) ~= nil then
+        for _,ip in pairs(bypassIPlist) do
             if getClientIp()==ip then
                 return true
             end
@@ -268,16 +268,28 @@ function blockip()
          return false
 end
 
+function notbanip()
+    if next(NotBanIplist) ~= nil then
+        for _,ip in pairs(NotBanIplist) do
+            if getClientIp()==ip then
+                return false
+            end
+        end
+    end
+    return true
+end
+
 function blackip()
+      if notbanip() == false then return false end
       --ttl cache lookups for this many seconds
       local cache_ttl     = 3600
       local ip = getClientIp()
       local ip_blacklist = ngx.shared.ip_blacklist
       local last_update_time  = ip_blacklist:get("last_update_time")
       if last_update_time == nil or last_update_time < ( ngx.now() - cache_ttl ) then
-          file = io.open(blackipfile,"r")
+          file = io.open(banipfile,"r")
           if file==nil then
-	      ngx.log(ngx.INFO, "Open blackipfile error!" )
+	      ngx.log(ngx.INFO, "Open banipfile error!" )
               return flase
           end
 	  ip_blacklist:flush_all()
