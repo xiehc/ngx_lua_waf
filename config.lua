@@ -1,5 +1,6 @@
 RulePath = "/etc/nginx/waf/ngx_lua_waf/wafconf/"
-BlackipFile = "/etc/nginx/waf/ngx_lua_waf/wafconf/blackip"
+BanIpFile = "/etc/nginx/waf/ngx_lua_waf/wafconf/banip"
+NotBanIplist={"127.0.0.1","192.168.0.1"}
 attacklog = "on"
 logdir = "/opt/logs/waf/"
 UrlDeny="on"
@@ -9,7 +10,7 @@ postMatch="on"
 refererMatch="on"
 whiteModule="on" 
 black_fileExt={"php","jsp"}
-ipWhitelist={"127.0.0.1"}
+bypassIPlist={"127.0.0.1"}
 ipBlocklist={"1.0.0.1"}
 CCDeny="off"
 CCrate="10000/60"
